@@ -27,3 +27,93 @@
  *
  * Created by sarajit *
  */
+import java.util.*;
+
+
+public class IceCreamParlor  {
+
+    
+	
+	public static int[] _findPair (int[] input, int sum) {
+        Map<Integer, Integer> elementRef = new HashMap<>();
+
+        int[] res = new int[2];
+        for (int idx = 0; idx < input.length; idx ++) {
+            
+			//System.out.println("elementRef"+ elementRef);
+			if (elementRef.containsKey(sum - input[idx])) {
+                System.out.println(" if elementRef"+ elementRef);
+				System.out.println(" if idx"+ idx);
+				System.out.println(" if input[idx]"+ input[idx]);
+				System.out.println(" if sum - input[idx]"+ (sum - input[idx]));
+				
+				res[0] = Math.min(idx+1 , elementRef.get(sum - input[idx]));
+                res[1] = Math.max(idx+1, elementRef.get(sum - input[idx]));
+                break;
+            } else {
+                elementRef.put(input [idx], idx+1 );
+				System.out.println(" else elementRef"+ elementRef);
+				System.out.println(" else idx"+ idx);
+				System.out.println(" else input[idx]"+ input[idx]);
+				System.out.println(" else sum - input[idx]"+ (sum - input[idx]));
+
+            }
+        }
+
+        return res;
+    }
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner (System.in);
+
+		//get no of trips
+		//get details for each trip
+		//get no of $ is being to spent at each trip
+		//get no of flabour available at each trip 
+		//get cost of each flabour
+		//find the cost 2 flavour = m 
+		//print the the position of the flavour
+		//O(n square)
+		int t = sc.nextInt();
+		
+		long start =  System.nanoTime();
+		while (t>0){
+
+			int d = sc.nextInt();
+			int f = sc.nextInt();
+			int [] cost = new int [f];
+
+			
+			for(int i =0; i< f ; i++){
+				
+				cost[i] = sc.nextInt();
+			System.out.println(cost[i]);
+			
+			}
+
+			int res [] = _findPair(cost,d);
+
+			System.out.println("result"+ Arrays.toString(res));
+
+
+			for(int j=0;j<f;j++){
+				for(int k=j+1;k<f;k++){
+					if(cost[j] +cost[k] == d)
+						System.out.println("--------------->"+cost[j]+ "" +cost[k]);
+				
+				}
+			}
+			
+			t--;
+		}
+
+		long end = System.nanoTime();
+		long diff = end-start;
+		long diffInMillis = diff/1000000;
+		System.out.println("Total time taken"+diffInMillis+ "ms" );
+
+    }
+ 
+}
