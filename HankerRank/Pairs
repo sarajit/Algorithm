@@ -1,0 +1,79 @@
+/*Given  integers, count the number of pairs of integers whose difference is .
+
+Input Format
+
+The first line contains  and . 
+The second line contains  numbers of the set. All the  numbers are unique.
+
+Constraints
+
+Each integer will be greater than  and at least  smaller than .
+Output Format
+
+An integer that tells the number of pairs of integers whose difference is .
+
+Sample Input
+
+5 2  
+1 5 3 4 2  
+Sample Output
+
+3
+Explanation
+
+There are 3 pairs of integers in the set with a difference of 2.*/
+
+import java.util.*;
+
+public class Pairs{
+	
+	
+	public static  int binarySearch(int arr[], int low, int high, int x){
+    if (high >= low)
+    {
+        int mid = low + (high - low)/2;
+        if (x == arr[mid])
+            return mid;
+        if (x > arr[mid])
+            return binarySearch(arr, (mid + 1), high, x);
+        else
+            return binarySearch(arr, low, (mid -1), x);
+    }
+    return -1;
+	}
+
+	public static int countPairsWithDiffK(int arr[], int n, int k)
+	{
+    int count = 0, i;
+    Arrays.sort(arr);  // Sort array elements
+ 
+    /* code to remove duplicates from arr[] */
+   
+    // Pick a first element point
+    for (i = 0; i < n-1; i++)
+        if (binarySearch(arr, i+1, n-1, arr[i] + k) != -1)
+            count++;
+ 
+    return count;
+	}
+	
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+
+		int set_1= sc.nextInt();
+		int pairdiff= sc.nextInt();
+		int [] set_1_Array = new int[set_1] ;
+		for(int i =0; i<set_1 ; i++){
+			set_1_Array[i] = sc.nextInt();
+			
+		}
+
+		int count = countPairsWithDiffK(set_1_Array,set_1_Array.length,pairdiff);
+
+		System.out.println(count);
+
+	}
+}
+
+
